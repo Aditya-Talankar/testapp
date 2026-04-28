@@ -1,7 +1,7 @@
 // ── Config ──────────────────────────────────────────
-const TILE = 36;
-const COLS = 32;
-const ROWS = 22;
+const TILE = 20;
+const COLS = 128;
+const ROWS = 96;
 
 // ── Terrain definition ───────────────────────────────
 const TERRAIN = [
@@ -30,6 +30,10 @@ let selectedId    = 'grass';
 let brushSize     = 1;
 let isPainting    = false;
 let history       = [];          // for undo
+let scale         = 1;           // zoom level
+const MIN_SCALE   = 0.1;
+const MAX_SCALE   = 3;
+const SCROLL_SENSITIVITY = 0.001;
 
 function newMap() {
   return Array.from({ length: ROWS }, () => Array(COLS).fill('grass'));
@@ -106,6 +110,18 @@ canvas.addEventListener('mousemove', e => {
 });
 canvas.addEventListener('mouseup',    () => isPainting = false);
 canvas.addEventListener('mouseleave', () => isPainting = false);
+
+// ── Zoom ─────────────────────────────────────────────
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = -e.deltaY * SCROLL_SENSITIVITY;
+  const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+  if (newScale !== scale) {
+    scale = newScale;
+    canvas.style.transform = `scale(${scale})`;
+    document.getElementById('zoomDisplay').textContent = `Zoom: ${Math.round(scale * 100)}%`;
+  }
+}, { passive: false });
 
 // ── Undo ─────────────────────────────────────────────
 function saveHistory() {
