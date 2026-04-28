@@ -2,15 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My App</title>
+  <title>Map Builder</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>My Desktop App 🚀</h1>
-    <p>Edit <b>src/index.html</b> to build your UI.</p>
-    <button id="btn">Click Me</button>
-    <p id="output"></p>
+  <div id="toolbar">
+    <span class="title">🗺️ Map Builder</span>
+
+    <div class="tool-group">
+      <label>Terrain</label>
+      <div class="tools" id="terrainTools"></div>
+    </div>
+
+    <div class="tool-group">
+      <label>Brush Size</label>
+      <input type="range" id="brushSize" min="1" max="5" value="1" />
+      <span id="brushLabel">1</span>
+    </div>
+
+    <div class="tool-group">
+      <label>Actions</label>
+      <div class="actions">
+        <button id="undoBtn">↩ Undo</button>
+        <button id="clearBtn">🗑 Clear</button>
+        <button id="saveBtn">💾 Save</button>
+        <button id="loadBtn">📂 Load</button>
+      </div>
+    </div>
   </div>
+
+  <div id="canvas-container">
+    <canvas id="mapCanvas"></canvas>
+  </div>
+
+  <div id="statusBar">
+    <span id="coordDisplay">Tile: —</span>
+    <span id="terrainDisplay">Terrain: Grass</span>
+  </div>
+
   <script src="renderer.js"></script>
 </body>
+</html>
