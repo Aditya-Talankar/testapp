@@ -91,14 +91,15 @@ button:hover { background: #555; border-color: #aaa; }
   overflow: auto;
   background: #222;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 16px;
+  position: relative;
 }
 
 canvas {
   cursor: crosshair;
-  transform-origin: center center;
+  transform-origin: top left;
   transition: transform 0.1s ease-out;
   border: 2px solid #444;
   image-rendering: pixelated;
